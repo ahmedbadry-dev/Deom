@@ -4,18 +4,23 @@ import { useEffect, useRef, useState } from "react";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle2, Info, Zap } from "lucide-react";
-import { defaultReport, createReference } from "@/lib/report";
+import { defaultReport } from "@/lib/report";
 import { reportSchema, type ReportFormValues } from "@/lib/validation";
 import { ReportForm } from "@/components/report-form";
 import { ReportPreview } from "@/components/report-preview";
 import { ReportActions } from "@/components/report-actions";
 import { StepIndicator } from "@/components/step-indicator";
 
-export function ReportBuilder() {
-  const methods = useForm<ReportFormValues>({ resolver: zodResolver(reportSchema), defaultValues: defaultReport, mode: "onBlur" });
+interface ReportBuilderProps {
+  initialReference: string;
+  initialDate: string;
+}
+
+export function ReportBuilder({ initialReference, initialDate }: ReportBuilderProps) {
+  const methods = useForm<ReportFormValues>({ resolver: zodResolver(reportSchema), defaultValues: { ...defaultReport, date: initialDate }, mode: "onBlur" });
   const watched = useWatch({ control: methods.control });
   const liveData: ReportFormValues = { ...defaultReport, ...watched } as ReportFormValues;
-  const [reference] = useState(createReference);
+  const [reference] = useState(initialReference);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
   const [toast, setToast] = useState<string | null>(null);

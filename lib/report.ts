@@ -22,7 +22,7 @@ export const defaultReport: ReportFormValues = {
   title: "تقرير زيارة الموقع",
   description:
     "تمت زيارة الموقع ومراجعة نطاق العمل والمتطلبات الأولية، وتم توثيق الملاحظات الأساسية والتوصيات المقترحة للمرحلة القادمة.",
-  date: getToday(),
+  date: "",
   consent: true,
 };
 
