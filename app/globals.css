@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #17221f;
+  --green: #123f35;
+  --green-dark: #0b3029;
+  --green-soft: #edf4f1;
+  --gold: #b8904f;
+  --paper: #fcfbf8;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  overflow-x: hidden;
+  color: var(--ink);
+  background: #f5f6f4;
+  font-family: "IBM Plex Sans Arabic", Arial, sans-serif;
+  font-feature-settings: "kern" 1, "liga" 1;
+  -webkit-font-smoothing: antialiased;
+}
+button, input, textarea, select { font: inherit; }
+button { cursor: pointer; }
+::selection { background: #d9c49d; color: #17201d; }
+
+.app-background {
+  background-image:
+    linear-gradient(rgba(255,255,255,.64), rgba(255,255,255,.64)),
+    radial-gradient(circle at 88% -5%, rgba(184, 144, 79, .14), transparent 25rem),
+    radial-gradient(circle at 2% 42%, rgba(18, 63, 53, .08), transparent 30rem);
+}
+
+.field {
+  width: 100%;
+  border: 1px solid #d8d9d4;
+  border-radius: .625rem;
+  background: #fdfdfc;
+  min-height: 2.875rem;
+  padding: .72rem .85rem;
+  color: #17201d;
+  outline: none;
+  font-size: .875rem;
+  transition: border-color .18s, box-shadow .18s, background-color .18s;
+}
+.field::placeholder { color: #999d98; }
+.field:hover { border-color: #bfc4c0; }
+.field:focus { border-color: var(--green); background: #fff; box-shadow: 0 0 0 3px rgba(18,63,53,.09); }
+.field-error { border-color: #c35c55 !important; background: #fffafa; }
+.field-with-leading-icon { padding-inline-start: 2.65rem; }
+.field-with-trailing-icon { padding-inline-end: 2.65rem; }
+.report-paper { width: 100%; min-width: 0; aspect-ratio: 210 / 297; }
+
+.focus-ring:focus-visible {
+  outline: 3px solid rgba(184, 144, 79, .28);
+  outline-offset: 2px;
+}
+
+@keyframes toast-in {
+  from { transform: translateY(14px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.toast-in { animation: toast-in .25s ease-out; }
+
+@media print {
+  @page { size: A4; margin: 0; }
+  body { background: white; }
+  body * { visibility: hidden !important; }
+  #report-paper, #report-paper * { visibility: visible !important; }
+  #report-paper {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 210mm !important;
+    min-height: 297mm !important;
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+}
